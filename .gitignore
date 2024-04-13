@@ -5,3 +5,7 @@ node_modules
 .env
 
 .wrangler
+
+## Panda
+styled-system
+styled-system-studio
