@@ -1,15 +1,24 @@
 import type { MetaFunction } from '@remix-run/cloudflare'
 import { Link as RemixLink } from '@remix-run/react'
-import { ArrowRightIcon, ExternalLinkIcon } from 'lucide-react'
+import {
+  ArrowRightIcon,
+  CircleHelpIcon,
+  ExternalLinkIcon,
+  XIcon,
+} from 'lucide-react'
 import { css } from 'styled-system/css'
 import { Box, Container, Flex, Stack } from 'styled-system/jsx'
-import { container } from 'styled-system/patterns'
+import { center, container } from 'styled-system/patterns'
 import { Badge } from '~/components/ui/Badge'
 import { Button } from '~/components/ui/Button'
+import * as Dialog from '~/components/ui/Dialog'
 import { Heading } from '~/components/ui/Heading'
+import { Icon } from '~/components/ui/Icon'
+import { IconButton } from '~/components/ui/IconButton'
 import { InputField } from '~/components/ui/InputField'
 import { Link } from '~/components/ui/Link'
 import * as Tabs from '~/components/ui/Tabs'
+import { Text } from '~/components/ui/Text'
 
 export const meta: MetaFunction = () => {
   return [
@@ -37,7 +46,53 @@ export default function Index() {
           Query2Doc Demo
         </Heading>
         <Stack gap="4" className={container({ minW: '3xl' })}>
-          <InputField id="api-key" label="Open AI API Key" type="password" />
+          <InputField
+            id="api-key"
+            label="Open AI API KEY"
+            type="password"
+            labelIcon={
+              <Dialog.Root>
+                <Dialog.Trigger>
+                  <Icon className={center()}>
+                    <CircleHelpIcon />
+                  </Icon>
+                </Dialog.Trigger>
+                <Dialog.Backdrop />
+                <Dialog.Positioner>
+                  <Dialog.Content p={4} maxW={'xl'}>
+                    <Dialog.Title>API KEY</Dialog.Title>
+                    <Dialog.Description>
+                      <Text>
+                        You need an API key to use this service. The API key is
+                        used exclusively for this service, processed on the
+                        backend, and not stored in any database.
+                      </Text>
+                      <Link mt={4} asChild>
+                        <RemixLink to="https://openai.com/">
+                          Get your API Key
+                          <ExternalLinkIcon />
+                        </RemixLink>
+                      </Link>
+                    </Dialog.Description>
+                    <Dialog.CloseTrigger
+                      asChild
+                      position="absolute"
+                      top="2"
+                      right="2"
+                    >
+                      <IconButton
+                        aria-label="Close Dialog"
+                        variant="ghost"
+                        size="sm"
+                      >
+                        <XIcon />
+                      </IconButton>
+                    </Dialog.CloseTrigger>
+                  </Dialog.Content>
+                </Dialog.Positioner>
+              </Dialog.Root>
+            }
+          />
           <Flex gap="4" w="full" alignItems="end">
             <Box flex="1">
               <InputField id="query" label="Query" />
