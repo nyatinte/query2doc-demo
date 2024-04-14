@@ -14,6 +14,7 @@
     "typegen": "wrangler types"
   },
   "dependencies": {
+    "@ark-ui/react": "^2.2.3",
     "@remix-run/cloudflare": "^2.8.1",
     "@remix-run/cloudflare-pages": "^2.8.1",
     "@remix-run/react": "^2.8.1",
@@ -26,6 +27,7 @@
     "@biomejs/biome": "^1.6.4",
     "@cloudflare/workers-types": "^4.20230518.0",
     "@pandacss/dev": "^0.37.2",
+    "@park-ui/panda-preset": "^0.37.0",
     "@remix-run/dev": "^2.8.1",
     "@types/react": "^18.2.20",
     "@types/react-dom": "^18.2.7",

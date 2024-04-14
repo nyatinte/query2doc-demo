@@ -19,5 +19,8 @@
   "editor.codeActionsOnSave": {
     "quickfix.biome": "explicit",
     "source.organizeImports.biome": "explicit"
+  },
+  "workbench.editor.customLabels.patterns": {
+    "app/components/ui/**/index.tsx": "[Component] - ${dirname}"
   }
 }
