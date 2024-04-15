@@ -127,7 +127,11 @@ export default function Index() {
               labelIcon={
                 <Dialog.Root>
                   <Dialog.Trigger asChild>
-                    <IconButton variant={'ghost'} className={center()}>
+                    <IconButton
+                      variant={'ghost'}
+                      className={center()}
+                      aria-label="Help with API Key"
+                    >
                       <CircleHelpIcon />
                     </IconButton>
                   </Dialog.Trigger>
