@@ -16,6 +16,7 @@
   },
   "dependencies": {
     "@ark-ui/react": "^2.2.3",
+    "@hookform/resolvers": "^3.3.4",
     "@remix-run/cloudflare": "^2.8.1",
     "@remix-run/cloudflare-pages": "^2.8.1",
     "@remix-run/react": "^2.8.1",
@@ -23,7 +24,9 @@
     "lucide-react": "^0.368.0",
     "miniflare": "^3.20231030.4",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "react-hook-form": "^7.51.3",
+    "zod": "^3.22.4"
   },
   "devDependencies": {
     "@biomejs/biome": "^1.6.4",

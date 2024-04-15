@@ -1,5 +1,7 @@
 {
   "editor.formatOnSave": true,
+  "eslint.enable": false,
+  "prettier.enable": false,
   "editor.defaultFormatter": "biomejs.biome",
   "[typescript]": {
     "editor.defaultFormatter": "biomejs.biome"
