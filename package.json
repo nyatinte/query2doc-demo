@@ -1,5 +1,10 @@
 {
   "name": "query2doc-demo",
+  "author": {
+    "email": "takumi.062757@gmail.com",
+    "name": "Takumi Nakamura"
+  },
+  "license": "MIT",
   "private": true,
   "sideEffects": false,
   "type": "module",
