@@ -7,6 +7,7 @@ import {
   ScrollRestoration,
 } from '@remix-run/react'
 
+import { Toaster } from 'react-hot-toast'
 import styles from './index.css?url'
 
 export const links: LinksFunction = () => {
@@ -23,6 +24,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <Links />
       </head>
       <body>
+        <Toaster />
         {children}
         <ScrollRestoration />
         <Scripts />

@@ -5,16 +5,20 @@ import {
   ArrowRightIcon,
   CircleHelpIcon,
   ExternalLinkIcon,
+  InfoIcon,
   XIcon,
 } from 'lucide-react'
+import OpenAI from 'openai'
 import { useState } from 'react'
 import { type SubmitHandler, useForm, useWatch } from 'react-hook-form'
+import toast from 'react-hot-toast'
 import { css } from 'styled-system/css'
 import { Box, Container, Flex, Stack } from 'styled-system/jsx'
 import { center, container } from 'styled-system/patterns'
 import { z } from 'zod'
 import { Badge } from '~/components/ui/Badge'
 import { Button } from '~/components/ui/Button'
+import { Code } from '~/components/ui/Code'
 import * as Dialog from '~/components/ui/Dialog'
 import { Heading } from '~/components/ui/Heading'
 import { IconButton } from '~/components/ui/IconButton'
@@ -45,24 +49,56 @@ export default function Index() {
   ] as const satisfies readonly { id: string; label: string }[]
 
   const [pseudoDocument, setPseudoDocument] = useState<string>()
+  const [response, setResponse] = useState<string>()
   const {
     register,
     handleSubmit,
     control,
+    setError,
     formState: { isSubmitting, errors },
   } = useForm<FormValues>({
     resolver: zodResolver(schema),
   })
 
   const onSubmit: SubmitHandler<FormValues> = async (values) => {
-    console.log(values)
-    const response: string = await new Promise((resolve) => {
-      setTimeout(() => {
-        resolve('hogeohge')
-      }, 1000)
+    const client = new OpenAI({
+      // WHY: User use each own API key
+      dangerouslyAllowBrowser: true,
+      apiKey: values.apiKey,
     })
 
-    setPseudoDocument(response)
+    const completions = await client.chat.completions
+      .create({
+        model: 'text-davinci-003',
+        messages: [
+          {
+            role: 'user',
+            content: `Write a passage that answers the given query:\n\nQuery: ${values.query}\nPassage:`,
+          },
+        ],
+        max_tokens: 128,
+        temperature: 1,
+        top_p: 1,
+        frequency_penalty: 0,
+        presence_penalty: 0,
+      })
+      .catch((e) => {
+        if (e.code === 'invalid_api_key') {
+          setError('apiKey', {
+            type: 'manual',
+            message: 'Invalid API Key',
+          })
+        }
+        return e
+      })
+
+    setResponse(JSON.stringify(completions, null, 2))
+
+    if (!completions || !completions?.choices?.[0]?.message?.content) {
+      toast.error('Failed to fetch data from OpenAI')
+      return
+    }
+    setPseudoDocument(completions.choices[0].message.content)
   }
 
   const query = useWatch<FormValues>({ control, name: 'query' })
@@ -92,11 +128,7 @@ export default function Index() {
                 <Dialog.Root>
                   <Dialog.Trigger asChild>
                     <IconButton variant={'ghost'} className={center()}>
-                      <CircleHelpIcon
-                        className={css({
-                          cursor: 'pointer',
-                        })}
-                      />
+                      <CircleHelpIcon />
                     </IconButton>
                   </Dialog.Trigger>
                   <Dialog.Backdrop />
@@ -162,9 +194,43 @@ export default function Index() {
               shadow: 'sm',
             })}
           >
-            <Badge mb="4" variant="outline">
-              Pseudo Document
-            </Badge>
+            <Flex mb="4" justifyContent="space-between" alignItems="center">
+              <Badge variant="outline">Pseudo Document</Badge>
+              {response && (
+                <Dialog.Root>
+                  <Dialog.Trigger asChild>
+                    <IconButton variant={'ghost'} className={center()}>
+                      <InfoIcon />
+                    </IconButton>
+                  </Dialog.Trigger>
+                  <Dialog.Backdrop />
+                  <Dialog.Positioner>
+                    <Dialog.Content p={4} maxW={'xl'}>
+                      <Dialog.Title>Response</Dialog.Title>
+                      <Dialog.Description>
+                        <Code asChild w={'full'} overflow="scroll">
+                          <pre>{response}</pre>
+                        </Code>
+                      </Dialog.Description>
+                      <Dialog.CloseTrigger
+                        asChild
+                        position="absolute"
+                        top="2"
+                        right="2"
+                      >
+                        <IconButton
+                          aria-label="Close Dialog"
+                          variant="ghost"
+                          size="sm"
+                        >
+                          <XIcon />
+                        </IconButton>
+                      </Dialog.CloseTrigger>
+                    </Dialog.Content>
+                  </Dialog.Positioner>
+                </Dialog.Root>
+              )}
+            </Flex>
             {isSubmitting ? (
               <Stack gap="3.5" w="full" animation="fade-in 0.5s ease-in-out">
                 {Array.from({ length: 5 }).map((_, i) => (
