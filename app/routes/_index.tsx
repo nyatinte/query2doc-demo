@@ -31,7 +31,7 @@ import { Text } from '~/components/ui/Text'
 export const meta: MetaFunction = () => {
   return [
     { title: 'Query2Doc Demo' },
-    { name: 'description', content: 'Query2Doc Demo' },
+    { name: 'description', content: 'Query2Doc Unofficial Demo' },
   ]
 }
 
