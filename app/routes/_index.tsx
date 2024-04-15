@@ -105,7 +105,7 @@ export default function Index() {
 
   return (
     <Container className={css({ paddingY: '4' })}>
-      <Stack gap="8">
+      <Stack gap="6">
         <Heading
           as="h1"
           className={css({
@@ -186,7 +186,7 @@ export default function Index() {
           <div
             className={css({
               height: 'fit-content',
-              minHeight: 'lg',
+              minHeight: 'md',
               border: '1px solid black',
               padding: '4',
               borderRadius: 'md',
@@ -246,7 +246,7 @@ export default function Index() {
           <div
             className={css({
               height: 'fit-content',
-              minHeight: 'lg',
+              minHeight: 'md',
               border: '1px solid black',
               padding: '4',
               borderRadius: 'md',
@@ -279,6 +279,12 @@ export default function Index() {
         <Link asChild>
           <RemixLink to="https://arxiv.org/abs/2303.07678">
             Read the paper
+            <ExternalLinkIcon />
+          </RemixLink>
+        </Link>
+        <Link asChild>
+          <RemixLink to="https://github.com/nyatinte">
+            Author of the demo
             <ExternalLinkIcon />
           </RemixLink>
         </Link>
