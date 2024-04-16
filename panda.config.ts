@@ -10,6 +10,7 @@ export default defineConfig({
   ],
   // Where to look for your css declarations
   include: [
+    './app/feature/**/*.{js,jsx,ts,tsx}',
     './app/routes/**/*.{js,jsx,ts,tsx}',
     './app/components/**/*.{js,jsx,ts,tsx}',
   ],
