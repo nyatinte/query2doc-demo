@@ -69,7 +69,8 @@ export default function Index() {
 
     const completions = await client.chat.completions
       .create({
-        model: 'text-davinci-003',
+        // 現論文ではtext-davinci-003を使用しているが、今はないのでgpt-3.5-turboを使用
+        model: 'gpt-3.5-turbo',
         messages: [
           {
             role: 'user',
@@ -212,6 +213,11 @@ export default function Index() {
                     <Dialog.Content p={4} maxW={'xl'}>
                       <Dialog.Title>Response</Dialog.Title>
                       <Dialog.Description>
+                        <Text>
+                          The original paper uses the text-davinci-003 model,
+                          but it is not available now. Instead, the
+                          gpt-3.5-turbo model is used.
+                        </Text>
                         <Code asChild w={'full'} overflow="scroll">
                           <pre>{response}</pre>
                         </Code>
