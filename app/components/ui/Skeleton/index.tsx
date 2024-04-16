@@ -14,13 +14,15 @@ export interface SkeletonProps extends HTMLStyledProps<'div'> {
   isLoaded?: boolean
 }
 
-export const Skeleton = forwardRef<HTMLDivElement, SkeletonProps>((props, ref) => {
-  const { isLoaded, ...rest } = props
+export const Skeleton = forwardRef<HTMLDivElement, SkeletonProps>(
+  (props, ref) => {
+    const { isLoaded, ...rest } = props
 
-  if (isLoaded) {
-    return <styled.div animation="fade-in" ref={ref} {...rest} />
-  }
-  return <StyledSkeleton ref={ref} {...rest} />
-})
+    if (isLoaded) {
+      return <styled.div animation="fade-in" ref={ref} {...rest} />
+    }
+    return <StyledSkeleton ref={ref} {...rest} />
+  },
+)
 
 Skeleton.displayName = 'Skeleton'
