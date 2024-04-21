@@ -9,7 +9,7 @@
   "sideEffects": false,
   "type": "module",
   "scripts": {
-    "prepare": "panda codegen",
+    "prepare": "panda codegen && lefthook install",
     "build": "remix vite:build",
     "deploy": "wrangler pages deploy ./build/client",
     "dev": "remix vite:dev",
